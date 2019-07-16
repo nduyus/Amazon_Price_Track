@@ -6,8 +6,10 @@ import time
 
 # this function will send alert email
 
+url = input("Enter product's URL: ")
 
-def sendmail(url):
+
+def sendmail():
     gmail_address = input("Enter your gmail address to send alert email: ")
     verification = input("Enter the 2-step verification code for gmail: ")
     dest_address = input(
@@ -35,8 +37,6 @@ def sendmail(url):
 
 
 def pricecheck():
-    url = input("Enter product's URL: ")
-
     wanted_price = input("What is your desired price? ")
 
     headers = {
