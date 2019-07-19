@@ -37,30 +37,28 @@ def sendmail():
 
 
 def pricecheck():
-    wanted_price = input("What is your desired price? ")
+    wanted_price = float(input("What is your desired price? "))
 
     headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Safari/605.1.15"}
 
     page = requests.get(url, headers=headers)
 
-    soup = bs(page.content, 'html.parser')
+    soup = bs(page.text, 'lxml')
 
     # print(soup.prettify)
 
-    #title = soup.find(id="productTitle").get_text()
-    price = soup.find(id="priceblock_ourprice").get_text()
+    #title = soup.find(id="priceblock_ourprice_lbl").get_text()
+    price = soup.find("span", id="priceblock_ourprice").get_text()
     converted_price = float(price[1:len(price)])
 
-    wanted_price = float(input("What is your desired price? "))
-
     if converted_price <= wanted_price:
-        sendmail(url)
+        sendmail()
     else:
         print("Item's price is", converted_price,
               "higher than your desired price", wanted_price)
 
-    # print(title.strip())
+    # print(title)
     # print(converted_price)
 
 
